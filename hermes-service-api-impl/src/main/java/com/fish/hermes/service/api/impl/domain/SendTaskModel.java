@@ -3,6 +3,10 @@ package com.fish.hermes.service.api.impl.domain;
 import com.fish.heremes.support.pipeline.ProcessModel;
 import com.fish.hermes.common.domain.TaskInfo;
 import com.fish.hermes.service.api.domain.MessageParam;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -11,6 +15,10 @@ import java.util.List;
  * @Author :  shenzhenxing
  * @Date :  2022/9/24 14:00
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SendTaskModel implements ProcessModel {
 
     /**
