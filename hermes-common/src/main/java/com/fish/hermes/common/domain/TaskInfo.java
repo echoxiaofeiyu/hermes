@@ -1,6 +1,10 @@
 package com.fish.hermes.common.domain;
 
 import com.fish.hermes.common.dto.ContentModel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -9,6 +13,10 @@ import java.util.Set;
  * @Author :  shenzhenxing
  * @Date :  2022/9/24 14:01
  */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TaskInfo {
 
     /**

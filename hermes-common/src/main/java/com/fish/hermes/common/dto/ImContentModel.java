@@ -1,0 +1,19 @@
+package com.fish.hermes.common.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @Description:
+ * @Author :  shenzhenxing
+ * @Date :  2022/9/28 15:42
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ImContentModel extends ContentModel{
+
+}
