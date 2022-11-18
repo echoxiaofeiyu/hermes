@@ -5,12 +5,12 @@ package com.fish.hermes.support.pipeline;
  * @Author :  shenzhenxing
  * @Date :  2022/9/27 19:18
  */
-public interface BusinessProcess {
+public interface BusinessProcess<T extends ProcessModel> {
 
     /**
      * 真正处理逻辑
      * @param context
      */
-    void process(ProcessContext context);
+    void process(ProcessContext<T> context);
 
 }

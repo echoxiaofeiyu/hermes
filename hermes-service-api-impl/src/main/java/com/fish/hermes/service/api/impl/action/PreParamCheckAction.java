@@ -9,6 +9,7 @@ import com.fish.hermes.common.vo.BasicResultVO;
 import com.fish.hermes.service.api.domain.MessageParam;
 import com.fish.hermes.service.api.impl.domain.SendTaskModel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,10 +20,11 @@ import java.util.stream.Collectors;
  * @Date :  2022/9/27 19:41
  */
 @Slf4j
-public class PreParamCheckAction implements BusinessProcess {
+@Service
+public class PreParamCheckAction implements BusinessProcess<SendTaskModel> {
 
     @Override
-    public void process(ProcessContext context) {
+    public void process(ProcessContext<SendTaskModel> context) {
         SendTaskModel sendTaskModel = (SendTaskModel) context.getProcessModel();
         Long messageTemplateId = sendTaskModel.getMessageTemplateId();
         List<MessageParam> messageParamList = sendTaskModel.getMessageParamList();

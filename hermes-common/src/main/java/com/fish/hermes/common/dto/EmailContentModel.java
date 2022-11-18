@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailContentModel extends ContentModel{
+
     /**
      * 标题
      */

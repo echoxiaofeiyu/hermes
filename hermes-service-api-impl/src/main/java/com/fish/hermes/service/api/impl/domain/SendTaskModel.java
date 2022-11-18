@@ -1,5 +1,6 @@
 package com.fish.hermes.service.api.impl.domain;
 
+import com.fish.hermes.support.entity.MessageTemplate;
 import com.fish.hermes.support.pipeline.ProcessModel;
 import com.fish.hermes.common.domain.TaskInfo;
 import com.fish.hermes.service.api.domain.MessageParam;
@@ -35,5 +36,11 @@ public class SendTaskModel implements ProcessModel {
      * 发送任务的信息
      */
     private List<TaskInfo> taskInfo;
+
+    /**
+     * 撤回任务的信息
+     */
+    private MessageTemplate messageTemplate;
+
 
 }
