@@ -21,6 +21,7 @@ import com.fish.hermes.support.pipeline.BusinessProcess;
 import com.fish.hermes.support.pipeline.ProcessContext;
 import com.fish.hermes.support.utils.ContentHolderUtil;
 import com.fish.hermes.support.utils.TaskInfoUtils;
+import com.google.common.base.Throwables;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,16 +46,22 @@ public class AssembleAction implements BusinessProcess<SendTaskModel> {
         SendTaskModel sendTaskModel = context.getProcessModel();
         Long messageTemplateId = sendTaskModel.getMessageTemplateId();
 
-        MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
-        if(messageTemplate == null || HermesConstant.TRUE.equals(messageTemplate.getIsDeleted())){
-            context.setNeedBreak(Boolean.TRUE).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
-            return;
-        }
+        try {
+            MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
+            if(messageTemplate == null || HermesConstant.TRUE.equals(messageTemplate.getIsDeleted())){
+                context.setNeedBreak(Boolean.TRUE).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
+                return;
+            }
 
-        if(BusinessCode.COMMON_SEND.getCode().equals(context.getCode())){
-
-        } else if (BusinessCode.RECALL.getCode().equals(context.getCode())) {
-            sendTaskModel.setMessageTemplate(messageTemplate);
+            if(BusinessCode.COMMON_SEND.getCode().equals(context.getCode())){
+                List<TaskInfo> taskInfos = assembleTaskInfo(sendTaskModel, messageTemplate);
+                sendTaskModel.setTaskInfo(taskInfos);
+            } else if (BusinessCode.RECALL.getCode().equals(context.getCode())) {
+                sendTaskModel.setMessageTemplate(messageTemplate);
+            }
+        } catch (Exception e) {
+            context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.SERVICE_ERROR));
+            log.error("assemble task fail! templateId:{}, e:{}", messageTemplateId, Throwables.getStackTraceAsString(e));
         }
 
     }

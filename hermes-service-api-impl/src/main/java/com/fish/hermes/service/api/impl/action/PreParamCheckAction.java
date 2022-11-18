@@ -25,7 +25,7 @@ public class PreParamCheckAction implements BusinessProcess<SendTaskModel> {
 
     @Override
     public void process(ProcessContext<SendTaskModel> context) {
-        SendTaskModel sendTaskModel = (SendTaskModel) context.getProcessModel();
+        SendTaskModel sendTaskModel = context.getProcessModel();
         Long messageTemplateId = sendTaskModel.getMessageTemplateId();
         List<MessageParam> messageParamList = sendTaskModel.getMessageParamList();
         if(messageTemplateId == null || CollUtil.isEmpty(messageParamList)){
