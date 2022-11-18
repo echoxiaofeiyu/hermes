@@ -1,9 +1,12 @@
-package com.fish.heremes.support.pipeline;
+package com.fish.hermes.support.pipeline;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.fish.hermes.support.exception.ProcessException;
 import com.fish.hermes.common.enums.RespStatusEnum;
 import com.fish.hermes.common.vo.BasicResultVO;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -13,13 +16,27 @@ import java.util.Map;
  * @Author :  shenzhenxing
  * @Date :  2022/9/27 19:15
  */
+@Slf4j
+@Data
 public class ProcessController {
 
+    /**
+     * 模板映射
+     */
     private Map<String,ProcessTemplate> templateConfig = null;
 
+    /**
+     * 执行责任链
+     *
+     * @param context
+     * @return 返回上下文内容
+     */
     public ProcessContext process(ProcessContext context){
-        if(!preCheck(context)){
-            return context;
+
+        try {
+            preCheck(context);
+        } catch (ProcessException e) {
+            return e.getProcessContext();
         }
 
         List<BusinessProcess> processList = templateConfig.get(context.getCode()).getProcessList();
@@ -32,35 +49,39 @@ public class ProcessController {
         return context;
     }
 
-    private Boolean preCheck(ProcessContext context) {
+    /**
+     * 执行前检查，出错则抛出异常
+     *
+     * @param context 执行上下文
+     * @throws ProcessException 异常信息
+     */
+    private void preCheck(ProcessContext context) {
         //上下文
         if(context == null){
             context = new ProcessContext();
             context.setResponse(BasicResultVO.fail(RespStatusEnum.CONTEXT_IS_NULL));
-            return false;
+            throw new ProcessException(context);
         }
 
         //业务代码校验
         String businessCode = context.getCode();
         if(StrUtil.isBlank(businessCode)){
             context.setResponse(BasicResultVO.fail(RespStatusEnum.BUSINESS_CODE_IS_NULL));
-            return false;
+            throw new ProcessException(context);
         }
 
         //执行模板
         ProcessTemplate processTemplate = templateConfig.get(businessCode);
         if(processTemplate == null){
             context.setResponse(BasicResultVO.fail(RespStatusEnum.PROCESS_TEMPLATE_IS_NULL));
-            return false;
+            throw new ProcessException(context);
         }
 
         //执行模板列表
         List<BusinessProcess> processList = processTemplate.getProcessList();
         if (CollUtil.isEmpty(processList)) {
             context.setResponse(BasicResultVO.fail(RespStatusEnum.PROCESS_LIST_IS_NULL));
-            return false;
+            throw new ProcessException(context);
         }
-
-        return true;
     }
 }

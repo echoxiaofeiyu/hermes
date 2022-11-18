@@ -1,6 +1,6 @@
 package com.fish.hermes.service.api.impl.domain;
 
-import com.fish.heremes.support.pipeline.ProcessModel;
+import com.fish.hermes.support.pipeline.ProcessModel;
 import com.fish.hermes.common.domain.TaskInfo;
 import com.fish.hermes.service.api.domain.MessageParam;
 import lombok.AllArgsConstructor;
