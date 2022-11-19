@@ -12,4 +12,10 @@ public class HermesConstant {
     public final static Integer TRUE = 1;
     public final static Integer FALSE = 0;
 
+    /**
+     * 配置中心默认的值
+     */
+    public final static String CONFIG_CENTER_DEFAULT_VALUE_JSON_OBJECT = "{}";
+    public final static String CONFIG_CENTER_DEFAULT_VALUE_JSON_ARRAY = "[]";
+
 }

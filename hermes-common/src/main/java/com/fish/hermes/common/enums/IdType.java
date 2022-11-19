@@ -25,6 +25,6 @@ public enum IdType {
     ;
 
 
-    private Integer code;
-    private String description;
+    private final Integer code;
+    private final String description;
 }
