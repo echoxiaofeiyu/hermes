@@ -4,6 +4,7 @@ import cn.hutool.setting.dialect.Props;
 import com.fish.hermes.support.service.ConfigService;
 import com.fish.hermes.support.utils.NacosUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
@@ -13,6 +14,7 @@ import java.nio.charset.StandardCharsets;
  * @Author :  shenzhenxing
  * @Date :  2022/11/19 14:08
  */
+@Service
 public class ConfigServiceImpl implements ConfigService {
 
 

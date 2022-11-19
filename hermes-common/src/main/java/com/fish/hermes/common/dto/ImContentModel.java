@@ -10,10 +10,6 @@ import lombok.NoArgsConstructor;
  * @Author :  shenzhenxing
  * @Date :  2022/9/28 15:42
  */
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class ImContentModel extends ContentModel{
 
 }
